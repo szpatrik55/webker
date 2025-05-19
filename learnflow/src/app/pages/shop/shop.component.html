@@ -1,1 +1,25 @@
-<p>shop works!</p>
+<div class="shop-container">
+  <h2>Elérhető termékek</h2>
+
+  <div class="product-grid" *ngIf="termekek.length > 0; else nincsTermek">
+    <div class="product-card" *ngFor="let termek of termekek">
+      <img src="assets/placeholder.jpg" alt="termék kép">
+      <h3>{{ termek.name }}</h3>
+      <p><strong>Leírás:</strong> {{ termek.description || 'Nincs megadva' }}</p>
+      <p><strong>Prioritás:</strong> {{ termek.priority }}</p>
+      <p><strong>Határidő:</strong> {{ termek.dueDate }}</p>
+
+      <label>Mennyiség:
+        <select>
+          <option *ngFor="let qty of mennyisegek" [value]="qty">{{ qty }}</option>
+        </select>
+      </label>
+
+      <button (click)="kosarhozAd(termek)">Kosárba</button>
+    </div>
+  </div>
+
+  <ng-template #nincsTermek>
+    <p>Nincs elérhető termék.</p>
+  </ng-template>
+</div>

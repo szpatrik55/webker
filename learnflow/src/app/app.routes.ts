@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard, publicGuard } from './shared/guards/auth/auth.guard';
 
 export const routes: Routes = [
     {
@@ -7,27 +8,32 @@ export const routes: Routes = [
     },
     {
         path: 'tasks',
-        loadComponent: () => import('./pages/tasks/tasks.component').then(m => m.TasksComponent)
+        loadComponent: () => import('./pages/tasks/tasks.component').then(m => m.TasksComponent),
+        canActivate: [authGuard]
+    },
+    {
+        path: 'completed',
+        loadComponent: () => import('./pages/completed/completed.component').then(m => m.CompletedComponent),
+        canActivate: [authGuard]
     },
     { 
         path: 'shop',
         loadComponent: ()=> import('./pages/shop/shop.component').then(m => m.ShopComponent)
     },
     {
-        path: 'completed',
-        loadComponent: () => import('./pages/completed/completed.component').then(m => m.CompletedComponent)
-    },
-    {
         path: 'profile',
-        loadComponent: () => import('./pages/profile/profile.component').then(m => m.ProfileComponent)
+        loadComponent: () => import('./pages/profile/profile.component').then(m => m.ProfileComponent),
+        canActivate: [authGuard]
     },
     {
         path: 'login',
-        loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent)
+        loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent),
+        canActivate: [publicGuard]
     },
     {
         path: 'signup',
-        loadComponent: () => import('./pages/signup/signup.component').then(m => m.SignupComponent)
+        loadComponent: () => import('./pages/signup/signup.component').then(m => m.SignupComponent),
+        canActivate: [publicGuard]
     },
     {
         path: '',
